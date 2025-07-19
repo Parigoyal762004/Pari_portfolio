@@ -28,7 +28,7 @@ const Hero = () => {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center px-4 text-center bg-ivory dark:bg-dark text-dark dark:text-light relative z-10">
       {/* AI Avatar */}
-      <div className="mb-6 rounded-full overflow-hidden w-44 h-44 border-4 border-pink shadow-xl">
+      <div className="mb-6 rounded-full overflow-hidden w-44 h-48 border-4 border-pink shadow-xl">
         <img
           src="/hero-img.jpg" // Replace with actual image path later
           alt="AI Avatar"
