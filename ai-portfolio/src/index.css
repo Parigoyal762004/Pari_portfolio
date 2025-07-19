@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import DM Sans and Dancing Script fonts from Google Fonts */
+
+/* Add custom base styling */
+body {
+  @apply font-sans bg-ivory text-dark dark:bg-dark dark:text-light;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Optional: Add backdrop-filter if not enabled by default in Tailwind */
+/* You might need to configure this in tailwind.config.js plugins */
+.backdrop-blur-custom {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+}
+/* Custom Scrollbar Styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: theme('colors.light'); /* Light mode track */
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: theme('colors.peach'); /* Light mode thumb */
+  border-radius: 10px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: theme('colors.dark'); /* Dark mode track */
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: theme('colors.blue'); /* Dark mode thumb */
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.pink'); /* Hover effect */
+}
