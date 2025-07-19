@@ -21,11 +21,18 @@ const Contact = () => {
   const [suggestedSkill, setSuggestedSkill] = useState('');
   const [strengthVote, setStrengthVote] = useState(null);
 
+  // Define the backend API endpoint using an environment variable
+  // IMPORTANT: You MUST set VITE_BACKEND_API_URL in your Vercel project's Environment Variables
+  // Its value should be: https://pari-portfolio-bsko.onrender.com/api/send-contact-email
+  const BACKEND_API_URL = import.meta.env.VITE_BACKEND_API_URL;
+
+
   // Function to actually send email via a backend API
   const sendEmail = useCallback(async (data) => {
     setSubmissionStatus('loading');
     try {
-      const response = await fetch('http://localhost:5000/api/send-contact-email', { // <<< IMPORTANT: Update this URL!
+      // Use the environment variable here
+      const response = await fetch(BACKEND_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -48,9 +55,10 @@ const Contact = () => {
       console.error("Error sending email:", error);
       setSubmissionStatus('error');
     }
-  }, []);
+  }, [BACKEND_API_URL]); // Add BACKEND_API_URL to dependencies
 
-  // Modified handleFormSubmit: now called directly by the main button
+
+  // Modified handleFinalSubmit: now called directly by the main button
   const handleFinalSubmit = useCallback(() => {
     const combinedData = {
       ...formData,
@@ -115,8 +123,7 @@ const Contact = () => {
                     formData={formData}
                     setFormData={setFormData}
                     // onSubmit prop is removed, the button is now external
-                    loading={submissionStatus === 'loading'}
-                    error={submissionStatus === 'error'}
+                    // loading and error props are no longer passed here as the button is external
                   />
 
                   {/* Micro-interactions section */}
