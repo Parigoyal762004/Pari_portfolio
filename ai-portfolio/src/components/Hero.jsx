@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import {AnimatedBackground} from "./AnimatedBackground";
-
+import { useNavigate } from "react-router-dom";
+import { AnimatedBackground } from "./AnimatedBackground";
 
 const phrases = [
   "Chaotic Genius™",
@@ -17,6 +16,7 @@ const phrases = [
 
 const Hero = () => {
   const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,8 +25,14 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleDiveIntoChaosClick = () => {
+    navigate('/about');
+  };
+
   return (
+    // Ensure the main section is positioned relative and has a higher z-index for its content
     <section className="min-h-screen flex flex-col items-center justify-center px-4 text-center bg-ivory dark:bg-dark text-dark dark:text-light relative z-10">
+
       {/* AI Avatar */}
       <div className="mb-6 rounded-full overflow-hidden w-44 h-48 border-4 border-pink shadow-xl">
         <img
@@ -54,12 +60,13 @@ const Hero = () => {
         I build immersive, aesthetic, AI-augmented experiences — one chaotic idea at a time.
       </p>
 
-      <Link
-        to="/about"
-        className="inline-block mt-2 px-6 py-3 rounded-full bg-pink text-white hover:scale-105 transition transform"
+      <button
+        onClick={handleDiveIntoChaosClick}
+        className="inline-block mt-2 px-6 py-3 rounded-full bg-pink text-white hover:scale-105 transition-transform duration-300 ease-in-out
+                   focus:outline-none focus:ring-2 focus:ring-pink focus:ring-opacity-75 font-semibold text-lg"
       >
         Dive Into the Chaos
-      </Link>
+      </button>
 
       {/* Scroll Down Cue */}
       <motion.div
@@ -67,11 +74,13 @@ const Hero = () => {
         transition={{ repeat: Infinity, duration: 2 }}
         className="absolute bottom-8 text-xl opacity-60"
       >
-        
+        {/* You can add an icon or text here for the scroll cue */}
       </motion.div>
-      <div className="absolute inset-0 z-0">
-  <AnimatedBackground />
-</div>
+
+      {/* THIS IS THE CRUCIAL CHANGE: Add pointer-events-none to the background layer */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <AnimatedBackground />
+      </div>
     </section>
   );
 };

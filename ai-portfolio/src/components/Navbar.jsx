@@ -16,7 +16,7 @@ const Navbar = () => {
     } else {
       navigate("/about"); // Navigate to /about
     }
-    setIsMenuOpen(false); // Close menu after navigation
+    setIsMenuOpen(false); // Close menu after navigation (important for all links)
   };
 
   // Function to close the mobile menu
@@ -32,7 +32,13 @@ const Navbar = () => {
   // Effect to handle clicks outside the mobile menu
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      // Ensure the menuRef.current exists and the click is outside the menu AND not on the toggle button itself
+      // We need to be careful not to close if the click was on the button that opens the menu.
+      // However, since the opening button now only opens (and doesn't toggle), this specific check is less critical for *closing*
+      // but still good for general click-outside behavior.
+      const isToggleButton = event.target.closest('[aria-controls="mobile-menu"]'); // Identify the original toggle button
+
+      if (menuRef.current && !menuRef.current.contains(event.target) && !isToggleButton) {
         closeMenu();
       }
     };
@@ -66,23 +72,23 @@ const Navbar = () => {
           <Link to="/projects" className="hover:text-pink dark:hover:text-blue transition-colors">Projects</Link>
           <Link to="/skills" className="hover:text-pink dark:hover:text-blue transition-colors">Skills</Link>
           <Link to="/resume" className="hover:text-pink dark:hover:text-blue transition-colors">Resume</Link>
-          
+
           <Link to="/contact" className="hover:text-pink dark:hover:text-blue transition-colors">Contact</Link>
-        
+
           {/* Dark/Light Theme Toggle for desktop */}
           <ThemeToggle />
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button (always 'Menu' to open it) */}
         <div className="sm:hidden flex items-center">
           <ThemeToggle /> {/* ThemeToggle always visible on mobile */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            onClick={() => setIsMenuOpen(true)} // This button now ONLY opens the menu
             className="ml-4 p-2 rounded-md text-dark dark:text-light bg-peach dark:bg-blue hover:bg-pink dark:hover:bg-pink transition-colors focus:outline-none focus:ring-2 focus:ring-pink"
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
-            <span className="font-semibold">{isMenuOpen ? "Close" : "Menu"}</span>
+            <span className="font-semibold">Menu</span> {/* Always display "Menu" */}
           </button>
         </div>
       </div>
@@ -95,14 +101,23 @@ const Navbar = () => {
           className="sm:hidden absolute top-full left-0 w-full bg-white dark:bg-dark border-t border-peach dark:border-blue shadow-lg pb-4 animate-fade-in-down"
         >
           <div className="px-2 pt-2 pb-3 space-y-1 text-dark dark:text-light">
+            {/* NEW: Close button INSIDE the mobile menu */}
+            <div className="flex justify-end pr-4 pt-2">
+              <button
+                onClick={closeMenu} // This button calls closeMenu
+                className="p-2 rounded-md text-dark dark:text-light bg-peach dark:bg-blue hover:bg-pink dark:hover:bg-pink transition-colors focus:outline-none focus:ring-2 focus:ring-pink"
+              >
+                <span className="font-semibold">Close</span>
+              </button>
+            </div>
+
+            {/* Existing navigation links - ensure they also call closeMenu */}
             <Link to="/" className={navLinkClasses} onClick={closeMenu}>Home</Link>
-            <a href="/about" onClick={handleAboutClick} className={navLinkClasses}>About</a>
+            <a href="/about" onClick={handleAboutClick} className={navLinkClasses}>About</a> {/* handleAboutClick already closes menu */}
             <Link to="/projects" className={navLinkClasses} onClick={closeMenu}>Projects</Link>
             <Link to="/skills" className={navLinkClasses} onClick={closeMenu}>Skills</Link>
             <Link to="/resume" className={navLinkClasses} onClick={closeMenu}>Resume</Link>
-          
             <Link to="/contact" className={navLinkClasses} onClick={closeMenu}>Contact</Link>
-            
           </div>
         </div>
       )}
