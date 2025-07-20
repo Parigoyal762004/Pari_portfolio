@@ -149,7 +149,7 @@ const timelineItems = [
       <div className="absolute -top-10 -left-10 w-72 h-72 bg-peach rounded-full blur-3xl opacity-80 animate-pulse"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-peach rounded-full blur-3xl opacity-30 animate-pulse delay-500"></div>
 
-      <div className="relative z-10 max-w-3xl mx-auto text-center space-y-6">
+      <div className="z-10 max-w-3xl mx-auto text-center space-y-6 ">
 
         {/* Floating Image (always visible) */}
         <FloatingImage />
