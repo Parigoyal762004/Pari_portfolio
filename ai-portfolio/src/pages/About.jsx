@@ -159,9 +159,9 @@ const timelineItems = [
           {!showTimeline && step === 0 && (
             <motion.div
               key="intro-step0"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 0.5, y: 0 }}
+              exit={{ opacity: 0, y: 100 }}
               transition={{ duration: 0.5 }}
             >
               <InitialIntro onChoice={handleInitialChoice} />
