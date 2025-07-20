@@ -41,7 +41,7 @@ const PoeticSummaryGenerator = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="mt-4 text-sm opacity-60 italic text-dark dark:text-light"
+            className="mt-4 text-sm opacity-60 italic text-dark dark:text-light relative z-0" // Ensure lower z-index if active
           >
             Generating poetic summary of: "Pari describes herself"...
           </motion.div>
@@ -53,7 +53,7 @@ const PoeticSummaryGenerator = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
-              className="mt-4 italic text-sm bg-light/10 dark:bg-dark/20 px-4 py-3 rounded-lg text-dark dark:text-light"
+              className="mt-4 italic text-sm bg-light/10 dark:bg-dark/20 px-4 py-3 rounded-lg text-dark dark:text-light relative z-0" // Ensure lower z-index if active
             >
               {poem}
             </motion.blockquote>
@@ -63,8 +63,7 @@ const PoeticSummaryGenerator = ({
 
       <div className="mt-4 text-xs italic opacity-60 text-dark dark:text-light">Cool, right? AI these days...</div>
 
-      {/* Added z-index to the button container */}
-      <div className="flex justify-center gap-3 pt-4 flex-wrap relative z-10"> {/* Added relative z-10 */}
+      <div className="flex justify-center gap-3 pt-4 flex-wrap relative z-10">
         <button
           onClick={() => onToggleInputPrompt(true)}
           className="text-sm bg-dark dark:bg-light text-light dark:text-dark px-4 py-2 rounded-full hover:scale-105 transition-transform duration-200 ease-in-out"
@@ -87,7 +86,7 @@ const PoeticSummaryGenerator = ({
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-6 space-y-3"
+            className="mt-6 space-y-3 relative z-20" // <-- Added relative z-20 here!
           >
             <input
               type="text"
