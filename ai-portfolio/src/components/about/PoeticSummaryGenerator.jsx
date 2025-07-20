@@ -63,7 +63,8 @@ const PoeticSummaryGenerator = ({
 
       <div className="mt-4 text-xs italic opacity-60 text-dark dark:text-light">Cool, right? AI these days...</div>
 
-      <div className="flex justify-center gap-3 pt-4 flex-wrap">
+      {/* Added z-index to the button container */}
+      <div className="flex justify-center gap-3 pt-4 flex-wrap relative z-10"> {/* Added relative z-10 */}
         <button
           onClick={() => onToggleInputPrompt(true)}
           className="text-sm bg-dark dark:bg-light text-light dark:text-dark px-4 py-2 rounded-full hover:scale-105 transition-transform duration-200 ease-in-out"
@@ -105,7 +106,6 @@ const PoeticSummaryGenerator = ({
             </button>
 
             {showUserPromptTypewriter && localUserPrompt && (
-              // Changed <p> to <div> here to fix the hydration error
               <div className="text-sm opacity-80 mt-2 text-dark dark:text-light">
                 Thinking about: <Typewriter
                   options={{

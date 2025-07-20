@@ -20,7 +20,7 @@ const TimelineSection = ({ timelineItems }) => {
   return (
     <div className="pt-12">
       <h2 className="text-3xl font-bold mb-10 text-dark dark:text-light">✨ Her Evolution</h2>
-      <div className="space-y-8 max-w-2xl mx-auto">
+      <div className="space-y-8 max-w-2xl mx-auto z-10"> {/* This div has z-10 */}
         {timelineItems.map((item, i) => (
           <motion.div
             key={i}
@@ -46,7 +46,8 @@ const TimelineSection = ({ timelineItems }) => {
           </motion.div>
         ))}
       </div>
-      <div className="flex justify-center gap-4 mt-8 flex-wrap">
+      {/* ADDED relative z-20 to the button container */}
+      <div className="flex justify-center gap-4 mt-8 flex-wrap relative z-20">
         <button
           onClick={handlePrevTimeline}
           disabled={currentTimelineIndex === 0}
